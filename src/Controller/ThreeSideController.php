@@ -1,6 +1,7 @@
 <?php
 
 namespace Kosmoss\Controller;
+
 use Kosmoss\Netpeak\ThreeSide;
 
 /**
@@ -16,29 +17,44 @@ class ThreeSideController extends BaseController
         $this->triangleModel = new ThreeSide();
     }
 
+    /**
+     * NEED MORE REFACTORING !!!
+     */
     public function process()
     {
         $a = isset($_POST['a']) ? $_POST['a'] : 0;
         $b = isset($_POST['b']) ? $_POST['b'] : 0;
         $c = isset($_POST['c']) ? $_POST['c'] : 0;
 
+        if ($a == 0 && $b == 0 && $c == 0) {
+            $this->triangleModel->showForm($_POST);
+
+            return;
+        }
+
+        if (($a == 0 && $b == 0) || ($a == 0 && $c == 0) ||
+            ($b == 0 && $c == 0) ||
+            (($c > 0) && (($a >= $c) || ($b >= $c)))
+        ) {
+            $this->triangleModel->showResult("Incorrect data");
+
+            return;
+        }
+
         if ($a > 0 && $b > 0 && $c > 0) {
             $triangleExistence = $this->triangleModel->existenceTriangle($a, $b, $c);
 
-            if ($triangleExistence == 0) {
+            if (!$triangleExistence) {
                 $this->triangleModel->showResult("Incorrect data");
-            } elseif (sqrt(pow($a, 2) + pow($b, 2)) <> $c) {
+
+                return;
+            }
+
+            if (sqrt(pow($a, 2) + pow($b, 2)) != $c) {
                 $this->triangleModel->showResult("Triangle is not right triangle");
             } else {
                 $this->triangleModel->showResult("a = " . strval($a) . ", b = " . strval($b) . ", c = " . strval($c));
             }
-        } elseif ($a == 0 && $b == 0 && $c == 0) {
-            $this->triangleModel->showForm($_POST);
-        } elseif (($a == 0 && $b == 0) || ($a == 0 && $c == 0) ||
-                  ($b == 0 && $c == 0) ||
-                  (($c > 0) && (($a >= $c) || ($b >= $c)))
-        ) {
-            $this->triangleModel->showResult("Incorrect data");
         } else {
             if ($a == 0) {
                 $result = round(sqrt(pow($c, 2) - pow($b, 2)), 5);

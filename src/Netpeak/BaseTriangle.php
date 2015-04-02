@@ -71,7 +71,7 @@ abstract class BaseTriangle
      * @param $a
      * @param $b
      * @param $c
-     * @return mixed
+     * @return bool
      */
     abstract function existenceTriangle($a, $b, $c);
 }

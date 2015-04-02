@@ -11,6 +11,6 @@ class ThreeSide extends BaseTriangle
 
     public function existenceTriangle($a, $b, $c)
     {
-        return (($c > ($a + $b)) || ($a > ($b + $c)) || ($b > ($a + $c))) ? 0 : 1;
+        return (($c > ($a + $b)) || ($a > ($b + $c)) || ($b > ($a + $c)));
     }
 }
