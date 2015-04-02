@@ -1,0 +1,61 @@
+.form_action {
+    width: 280px;
+}
+
+a:link {
+    text-decoration: none;
+    color: #00b8e4;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #00b8e4;
+}
+
+a:active {
+    text-decoration: underline;
+    color: #0a9dc0;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0a9dc0;
+}
+
+div#container {
+    margin: 0px auto;
+}
+
+div#menu {
+    width: 500px;
+    margin: 0px auto;
+}
+
+/*table rules menu */
+.menu-table {
+    width: 500px;
+    margin-top: 0px;
+}
+
+tr.menu-tr {
+    text-align: center;
+    height: 30px;
+}
+
+td.menu-td-name {
+    color: #ff876c;
+    font-size: 20px;
+    font-family: Impact, arial;
+    font-style: oblique;
+
+}
+
+td.menu-td-name2 {
+    font-size: 20px;
+}
+
+.name-table {
+    color: #00b8e4;
+    text-decoration: underline;
+    font-size: 20px;
+}

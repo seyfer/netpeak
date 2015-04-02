@@ -1,0 +1,26 @@
+{
+  "name": "kosmoss/netpeak-tz",
+  "description": "Netpeak kosmoss TZ refactored",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "netpeak",
+    "kosmoss"
+  ],
+  "homepage": "http://netpeak.ru/",
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.razlet.ru/"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Kosmoss\\": "src/"
+    }
+  }
+}
