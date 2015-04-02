@@ -1,12 +1,15 @@
 <?php
 namespace Kosmoss\Netpeak;
 
-//require_once "../Lib/View.php";
-
 use Kosmoss\Lib\View;
 
 abstract class BaseTriangle
 {
+    /**
+     * @var string
+     */
+    protected $defaultFormTpl = '';
+
     /**
      * @var string
      */
@@ -15,7 +18,7 @@ abstract class BaseTriangle
     /**
      * @var string
      */
-    protected $title = '';
+    protected $titleResult = '';
 
     /**
      * @param        $result
@@ -25,12 +28,36 @@ abstract class BaseTriangle
     public function showResult($result, $tpl = '')
     {
         $data = [
-            'title'  => $this->title,
+            'title'  => $this->titleResult,
             'result' => $result,
         ];
 
         if (!$tpl) {
             $tpl = $this->defaultTpl;
+        }
+
+        $HTML = View::render($tpl, $data);
+
+        echo $HTML;
+
+        return $HTML;
+    }
+
+    /**
+     * @param        $post
+     * @param string $tpl
+     * @return string
+     * @throws \Exception
+     */
+    public function showForm($post, $tpl = '')
+    {
+        $data = [
+            'title' => $this->titleForm,
+            'post'  => $post,
+        ];
+
+        if (!$tpl) {
+            $tpl = $this->defaultFormTpl;
         }
 
         $HTML = View::render($tpl, $data);

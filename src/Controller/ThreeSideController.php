@@ -33,7 +33,7 @@ class ThreeSideController extends BaseController
                 $this->triangleModel->showResult("a = " . strval($a) . ", b = " . strval($b) . ", c = " . strval($c));
             }
         } elseif ($a == 0 && $b == 0 && $c == 0) {
-            $this->triangleModel->show_form();
+            $this->triangleModel->showForm($_POST);
         } elseif (($a == 0 && $b == 0) || ($a == 0 && $c == 0) ||
                   ($b == 0 && $c == 0) ||
                   (($c > 0) && (($a >= $c) || ($b >= $c)))

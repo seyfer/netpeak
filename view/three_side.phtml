@@ -2,14 +2,14 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title><?php echo $title ?></title>
+    <title><?php echo $data['title'] ?></title>
     <link rel="stylesheet" type="text/css" title="Style" href="../public/css/style.css">
 </head>
 <body>
 
 <div id="container">
     <div id="row">
-        <form action="index.php?route=area" method="post">
+        <form action="index.php?route=three_side" method="post">
             <input type="text" disabled value="<?php echo $data['result'] ?>"/>
             <br/><br/>
             <input type="submit" value="back"/>

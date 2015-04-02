@@ -23,7 +23,8 @@ a:hover {
 }
 
 div#container {
-    margin: 0px auto;
+    position: relative;
+    display: block;
 }
 
 div#menu {
@@ -58,4 +59,10 @@ td.menu-td-name2 {
     color: #00b8e4;
     text-decoration: underline;
     font-size: 20px;
+}
+
+#row {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
 }

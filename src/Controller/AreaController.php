@@ -43,7 +43,7 @@ class AreaController extends BaseController
 
             }
         } elseif ($a == 0 && $b == 0 && $c == 0) {
-            $this->triangleModel->show_form();
+            $this->triangleModel->showForm($_POST);
         } elseif (($a == 0) || ($b == 0) || ($c == 0) || ($a > $c) || ($b > $c)) {
             $this->triangleModel->showResult("Incorrect data");
         }
