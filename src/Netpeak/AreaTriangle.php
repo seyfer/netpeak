@@ -9,14 +9,11 @@ class AreaTriangle extends BaseTriangle
     protected $titleResult    = 'Result';
     protected $titleForm      = 'Calculating the area of a triangle';
 
-    /**
-     * @param $a
-     * @param $b
-     * @param $c
-     * @return bool
-     */
-    public function existenceTriangle($a, $b, $c)
+    public function calcArea($a, $b, $c)
     {
-        return (($c < ($a + $b)) && ($a < ($b + $c)) && ($b < ($a + $c)));
+        $p = (($a + $b + $c) / 2);
+        $s = round(sqrt($p * ($p - $a) * ($p - $b) * ($p - $c)), 5);
+
+        return $s;
     }
 }

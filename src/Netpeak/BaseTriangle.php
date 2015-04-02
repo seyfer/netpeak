@@ -73,5 +73,8 @@ abstract class BaseTriangle
      * @param $c
      * @return bool
      */
-    abstract function existenceTriangle($a, $b, $c);
+    public function existenceTriangle($a, $b, $c)
+    {
+        return ($c < ($a + $b)) && ($a < ($b + $c)) && ($b < ($a + $c));
+    }
 }

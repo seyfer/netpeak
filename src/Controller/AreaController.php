@@ -27,42 +27,28 @@ class AreaController extends BaseController
         $b = isset($_POST['b']) ? $_POST['b'] : 0;
         $c = isset($_POST['c']) ? $_POST['c'] : 0;
 
-        if ($a == 0 && $b == 0 && $c == 0) {
+        if ($this->checkAllZero($a, $b, $c)) {
             $this->triangleModel->showForm($_POST);
 
-            return;
+            exit;
         }
 
         if (($a == 0) || ($b == 0) || ($c == 0) || ($a > $c) || ($b > $c)) {
             $this->triangleModel->showResult("Incorrect data");
 
-            return;
+            exit;
         }
 
-        if ($a > 0 && $b > 0 && $c > 0) {
-            $triangleExistence = $this->triangleModel->existenceTriangle($a, $b, $c);
+        if ($this->checkAllPositive($a, $b, $c)) {
+            $this->checkExistence($a, $b, $c);
 
-            if (!$triangleExistence) {
-                $this->triangleModel->showResult("Incorrect data");
+            $this->checkCorrectness($a, $b, $c);
 
-                return;
-            }
+            $s = $this->triangleModel->calcArea($a, $b, $c);
 
-            if (sqrt(pow($a, 2) + pow($b, 2)) != $c) {
-                $this->triangleModel->showResult("Triangle is not right triangle");
-            } else {
-                if (($a > $c) || ($b > $c)) {
-                    $this->triangleModel->showResult("Incorrect data");
-                } else {
-                    $p      = (($a + $b + $c) / 2);
-                    $s      = round(sqrt($p * ($p - $a) * ($p - $b) * ($p - $c)), 5);
-                    $result = "S = " . strval($s);
+            $result = "S = " . $s;
 
-                    $this->triangleModel->showResult($result);
-                }
-
-            }
-
+            $this->triangleModel->showResult($result);
         }
     }
 }

@@ -9,8 +9,13 @@ class ThreeSide extends BaseTriangle
     protected $titleResult    = 'Result';
     protected $titleForm      = 'The definition of a third side of a right triangle';
 
-    public function existenceTriangle($a, $b, $c)
+    public function calcCathetus($arg1, $arg2)
     {
-        return (($c > ($a + $b)) || ($a > ($b + $c)) || ($b > ($a + $c)));
+        return round(sqrt(pow($arg1, 2) - pow($arg2, 2)), 5);
+    }
+
+    public function calcHypotenuse($arg1, $arg2)
+    {
+        return round(sqrt(pow($arg1, 2) + pow($arg2, 2)), 5);
     }
 }
