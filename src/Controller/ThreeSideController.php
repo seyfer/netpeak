@@ -2,8 +2,6 @@
 
 namespace Kosmoss\Controller;
 
-use Kosmoss\Netpeak\ThreeSide;
-
 /**
  * Created by PhpStorm.
  * User: seyfer
@@ -12,10 +10,10 @@ use Kosmoss\Netpeak\ThreeSide;
  */
 class ThreeSideController extends BaseController
 {
-    public function __construct()
-    {
-        $this->triangleModel = new ThreeSide();
-    }
+    protected $defaultTpl     = 'three_side.phtml';
+    protected $defaultFormTpl = 'three_side_form.phtml';
+    protected $titleResult    = 'Result';
+    protected $titleForm      = 'The definition of a third side of a right triangle';
 
     /**
      * NEED MORE REFACTORING !!!
@@ -27,7 +25,7 @@ class ThreeSideController extends BaseController
         $c = isset($_POST['c']) ? $_POST['c'] : 0;
 
         if ($this->checkAllZero($a, $b, $c)) {
-            $this->triangleModel->showForm($_POST);
+            $this->showForm($_POST);
 
             exit;
         }
@@ -36,7 +34,7 @@ class ThreeSideController extends BaseController
             ($b == 0 && $c == 0) ||
             (($c > 0) && (($a >= $c) || ($b >= $c)))
         ) {
-            $this->triangleModel->showResult("Incorrect data");
+            $this->showResult("Incorrect data");
 
             exit;
         }
@@ -46,7 +44,7 @@ class ThreeSideController extends BaseController
 
             $this->checkCorrectness($a, $b, $c);
 
-            $this->triangleModel->showResult("a = " . strval($a) . ", b = " . strval($b) . ", c = " . strval($c));
+            $this->showResult("a = " . strval($a) . ", b = " . strval($b) . ", c = " . strval($c));
         } else {
             if ($a == 0) {
                 $result = "a = " . $this->triangleModel->calcCathetus($c, $b);
@@ -56,7 +54,7 @@ class ThreeSideController extends BaseController
                 $result = "c = " . $this->triangleModel->calcHypotenuse($a, $b);;
             }
 
-            $this->triangleModel->showResult($result);
+            $this->showResult($result);
         }
     }
 

@@ -8,15 +8,12 @@
 
 namespace Kosmoss\Controller;
 
-
-use Kosmoss\Netpeak\AreaTriangle;
-
 class AreaController extends BaseController
 {
-    public function __construct()
-    {
-        $this->triangleModel = new AreaTriangle();
-    }
+    protected $defaultTpl     = 'area.phtml';
+    protected $defaultFormTpl = 'area_form.phtml';
+    protected $titleResult    = 'Result';
+    protected $titleForm      = 'Calculating the area of a triangle';
 
     /**
      * NEED MORE REFACTORING !!!
@@ -28,13 +25,13 @@ class AreaController extends BaseController
         $c = isset($_POST['c']) ? $_POST['c'] : 0;
 
         if ($this->checkAllZero($a, $b, $c)) {
-            $this->triangleModel->showForm($_POST);
+            $this->showForm($_POST);
 
             exit;
         }
 
         if (($a == 0) || ($b == 0) || ($c == 0) || ($a > $c) || ($b > $c)) {
-            $this->triangleModel->showResult("Incorrect data");
+            $this->showResult("Incorrect data");
 
             exit;
         }
@@ -48,7 +45,7 @@ class AreaController extends BaseController
 
             $result = "S = " . $s;
 
-            $this->triangleModel->showResult($result);
+            $this->showResult($result);
         }
     }
 }
