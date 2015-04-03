@@ -15,20 +15,45 @@ class ThreeSideController extends BaseController
     protected $titleResult    = 'Result';
     protected $titleForm      = 'The definition of a third side of a right triangle';
 
-    /**
-     * NEED MORE REFACTORING !!!
-     */
     public function process()
     {
-        $a = isset($_POST['a']) ? $_POST['a'] : 0;
-        $b = isset($_POST['b']) ? $_POST['b'] : 0;
-        $c = isset($_POST['c']) ? $_POST['c'] : 0;
-
-        if ($this->checkAllZero($a, $b, $c)) {
+        if ($this->triangleModel->checkAllSidesZero()) {
             $this->showForm($_POST);
 
             exit;
         }
+
+        $this->checkCorrectInput();
+
+        if ($this->triangleModel->checkAllSidesPositive()) {
+            $this->checkExistence();
+
+            $this->checkCorrectness();
+
+            $this->showResult($this->formCorrectResult());
+        } else {
+            $this->calcSide();
+        }
+    }
+
+    private function calcSide()
+    {
+        list ($a, $b, $c) = $this->triangleModel->getTriangle()->getSidesArray();
+
+        if ($a == 0) {
+            $result = "a = " . $this->triangleModel->calcCathetus($c, $b);
+        } elseif ($b == 0) {
+            $result = "b = " . $this->triangleModel->calcCathetus($c, $a);;
+        } else {
+            $result = "c = " . $this->triangleModel->calcHypotenuse($a, $b);;
+        }
+
+        $this->showResult($result);
+    }
+
+    private function checkCorrectInput()
+    {
+        list ($a, $b, $c) = $this->triangleModel->getTriangle()->getSidesArray();
 
         if (($a == 0 && $b == 0) || ($a == 0 && $c == 0) ||
             ($b == 0 && $c == 0) ||
@@ -38,24 +63,16 @@ class ThreeSideController extends BaseController
 
             exit;
         }
+    }
 
-        if ($this->checkAllPositive($a, $b, $c)) {
-            $this->checkExistence($a, $b, $c);
+    /**
+     * @return string
+     */
+    private function formCorrectResult()
+    {
+        list ($a, $b, $c) = $this->triangleModel->getTriangle()->getSidesArray();
 
-            $this->checkCorrectness($a, $b, $c);
-
-            $this->showResult("a = " . strval($a) . ", b = " . strval($b) . ", c = " . strval($c));
-        } else {
-            if ($a == 0) {
-                $result = "a = " . $this->triangleModel->calcCathetus($c, $b);
-            } elseif ($b == 0) {
-                $result = "b = " . $this->triangleModel->calcCathetus($c, $a);;
-            } else {
-                $result = "c = " . $this->triangleModel->calcHypotenuse($a, $b);;
-            }
-
-            $this->showResult($result);
-        }
+        return "a = " . strval($a) . ", b = " . strval($b) . ", c = " . strval($c);
     }
 
 }

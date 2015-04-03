@@ -4,47 +4,116 @@ namespace Kosmoss\Netpeak;
 class Triangle
 {
     /**
-     * @param $a
-     * @param $b
-     * @param $c
-     * @return bool
+     * @var int
      */
-    public function existenceTriangle($a, $b, $c)
+    protected $a = 0;
+    /**
+     * @var int
+     */
+    protected $b = 0;
+    /**
+     * @var int
+     */
+    protected $c = 0;
+    /**
+     * @var int
+     */
+    protected $area = 0;
+
+    public function __construct($a, $b, $c)
     {
-        return ($c < ($a + $b)) && ($a < ($b + $c)) && ($b < ($a + $c));
+        $this->setA($a);
+        $this->setB($b);
+        $this->setC($c);
     }
 
     /**
-     * @param $arg1
-     * @param $arg2
-     * @return float
+     * @return array
      */
-    public function calcCathetus($arg1, $arg2)
+    public function getSidesArray()
     {
-        return round(sqrt(pow($arg1, 2) - pow($arg2, 2)), 5);
+        return [
+            $this->getA(),
+            $this->getB(),
+            $this->getC(),
+        ];
     }
 
     /**
-     * @param $arg1
-     * @param $arg2
-     * @return float
+     * @return int
      */
-    public function calcHypotenuse($arg1, $arg2)
+    public function getA()
     {
-        return round(sqrt(pow($arg1, 2) + pow($arg2, 2)), 5);
+        return $this->a;
     }
 
     /**
-     * @param $a
-     * @param $b
-     * @param $c
-     * @return float
+     * @param int $a
+     * @return $this
      */
-    public function calcArea($a, $b, $c)
+    public function setA($a)
     {
-        $p = (($a + $b + $c) / 2);
-        $s = round(sqrt($p * ($p - $a) * ($p - $b) * ($p - $c)), 5);
+        $this->a = $a;
 
-        return $s;
+        return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getB()
+    {
+        return $this->b;
+    }
+
+    /**
+     * @param int $b
+     * @return $this
+     */
+    public function setB($b)
+    {
+        $this->b = $b;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getC()
+    {
+        return $this->c;
+    }
+
+    /**
+     * @param int $c
+     * @return $this
+     */
+    public function setC($c)
+    {
+        $this->c = $c;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * @param int $area
+     * @return $this
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+
 }

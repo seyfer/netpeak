@@ -15,37 +15,40 @@ class AreaController extends BaseController
     protected $titleResult    = 'Result';
     protected $titleForm      = 'Calculating the area of a triangle';
 
-    /**
-     * NEED MORE REFACTORING !!!
-     */
     public function process()
     {
-        $a = isset($_POST['a']) ? $_POST['a'] : 0;
-        $b = isset($_POST['b']) ? $_POST['b'] : 0;
-        $c = isset($_POST['c']) ? $_POST['c'] : 0;
 
-        if ($this->checkAllZero($a, $b, $c)) {
+        if ($this->triangleModel->checkAllSidesZero()) {
             $this->showForm($_POST);
 
             exit;
         }
 
-        if (($a == 0) || ($b == 0) || ($c == 0) || ($a > $c) || ($b > $c)) {
-            $this->showResult("Incorrect data");
+        $this->checkCorrectInput();
 
-            exit;
-        }
+        if ($this->triangleModel->checkAllSidesPositive()) {
+            $this->checkExistence();
 
-        if ($this->checkAllPositive($a, $b, $c)) {
-            $this->checkExistence($a, $b, $c);
+            $this->checkCorrectness();
 
-            $this->checkCorrectness($a, $b, $c);
-
-            $s = $this->triangleModel->calcArea($a, $b, $c);
+            $s = $this->triangleModel->calcArea();
 
             $result = "S = " . $s;
 
             $this->showResult($result);
         }
     }
+
+    private function checkCorrectInput()
+    {
+        list ($a, $b, $c) = $this->triangleModel->getTriangle()->getSidesArray();
+
+        if (($a == 0) || ($b == 0) || ($c == 0) || ($a > $c) || ($b > $c)) {
+            $this->showResult("Incorrect data");
+
+            exit;
+        }
+    }
+
+
 }

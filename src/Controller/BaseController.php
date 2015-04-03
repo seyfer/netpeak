@@ -4,6 +4,7 @@ namespace Kosmoss\Controller;
 
 use Kosmoss\Lib\View;
 use Kosmoss\Netpeak\Triangle;
+use Kosmoss\Netpeak\TriangleModel;
 
 /**
  * Created by PhpStorm.
@@ -34,13 +35,22 @@ abstract class BaseController
     protected $titleForm = '';
 
     /**
-     * @var Triangle
+     * @var TriangleModel
      */
     protected $triangleModel;
 
     public function __construct()
     {
-        $this->triangleModel = new Triangle();
+        $this->init();
+    }
+
+    protected function init()
+    {
+        $a = isset($_POST['a']) ? $_POST['a'] : 0;
+        $b = isset($_POST['b']) ? $_POST['b'] : 0;
+        $c = isset($_POST['c']) ? $_POST['c'] : 0;
+
+        $this->triangleModel = new TriangleModel(new Triangle($a, $b, $c));
     }
 
     /**
@@ -90,14 +100,9 @@ abstract class BaseController
         return $HTML;
     }
 
-    /**
-     * @param $a
-     * @param $b
-     * @param $c
-     */
-    protected function checkExistence($a, $b, $c)
+    protected function checkExistence()
     {
-        $triangleExistence = $this->triangleModel->existenceTriangle($a, $b, $c);
+        $triangleExistence = $this->triangleModel->existenceTriangle();
 
         if (!$triangleExistence) {
             $this->showResult("Incorrect data");
@@ -106,39 +111,14 @@ abstract class BaseController
         }
     }
 
-    /**
-     * @param $a
-     * @param $b
-     * @param $c
-     */
-    protected function checkCorrectness($a, $b, $c)
+    protected function checkCorrectness()
     {
-        if (sqrt(pow($a, 2) + pow($b, 2)) != $c) {
+        if (!$this->triangleModel->isCorrect()) {
             $this->showResult("Triangle is not right triangle");
 
             exit;
         }
     }
 
-    /**
-     * @param $a
-     * @param $b
-     * @param $c
-     * @return bool
-     */
-    protected function checkAllPositive($a, $b, $c)
-    {
-        return $a > 0 && $b > 0 && $c > 0;
-    }
 
-    /**
-     * @param $a
-     * @param $b
-     * @param $c
-     * @return bool
-     */
-    protected function checkAllZero($a, $b, $c)
-    {
-        return $a == 0 && $b == 0 && $c == 0;
-    }
 }
