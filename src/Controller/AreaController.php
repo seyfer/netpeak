@@ -17,7 +17,6 @@ class AreaController extends BaseController
 
     public function process()
     {
-
         if ($this->triangleModel->checkAllSidesZero()) {
             $this->showForm($_POST);
 

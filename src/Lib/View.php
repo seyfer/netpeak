@@ -5,7 +5,7 @@ namespace Kosmoss\Lib;
 /**
  * Class View
  */
-class View
+abstract class View implements ViewInterface
 {
     private static $viewFolder = 'view';
 

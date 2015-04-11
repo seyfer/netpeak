@@ -13,16 +13,22 @@ if (array_key_exists('route', $_GET) && !empty($_GET['route'])) {
     switch ($route) {
         case "three_side" :
             $controller = new \Kosmoss\Controller\ThreeSideController();
-            $controller->process();
             break;
         case "area" :
             $controller = new \Kosmoss\Controller\AreaController();
-            $controller->process();
             break;
         default:
-            echo \Kosmoss\Lib\View::render("index.phtml", []);
+            $controller = new \Kosmoss\Controller\IndexController();
             break;
     }
+
+    if (!$controller instanceof \Kosmoss\Controller\ControllerInterface) {
+        throw new \Exception("Controller " . get_class($controller) .
+                             " must implement \\Kosmoss\\Controller\\ControllerInterface");
+    }
+
+    $controller->process();
 } else {
-    echo \Kosmoss\Lib\View::render("index.phtml", []);
+    $controller = new \Kosmoss\Controller\IndexController();
+    $controller->process();
 }

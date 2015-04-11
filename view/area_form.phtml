@@ -1,54 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title><?php echo $data['title'] ?></title>
-    <link rel="stylesheet" type="text/css" title="Style" href="../public/css/style.css">
-</head>
-<body>
-
-<div id="container">
-    <div id="row">
-        <table>
-            <caption class="name-table"><?php echo $data['title'] ?> (for example 3, 4, 5)</caption>
-            <tr>
-                <td>
-                    <img src="../public/img/triangle.png" width="300" height="276" alt="triangle"/><br/><br/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <form action="index.php?route=area" method="post">
-                        <table>
-                            <tr>
-                                <td>
-                                    A <input type="number" class="form_action" min="0" name="a"
-                                             value="<?php echo $data['post']['a'] ?>"/>
-                                    <br/><br/>
-                                    B <input type="number" class="form_action" min="0" name="b"
-                                             value="<?php echo $data['post']['b'] ?>"/>
-                                    <br/><br/>
-                                    C <input type="number" class="form_action" min="0" name="c"
-                                             value="<?php echo $data['post']['c'] ?>"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <input type="submit" value="submit"/> <br/>
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="index.php">Back to the menu</a>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-</body>
-</html>
+<table>
+    <caption class="name-table"><?php echo $data['title'] ?> (for example 3, 4, 5)</caption>
+    <tr>
+        <td>
+            <img src="../public/img/triangle.png" width="300" height="276" alt="triangle"/><br/><br/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form action="index.php?route=area" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            A <input type="number" class="form_action" min="0" name="a"
+                                     value="<?php echo $data['post']['a'] ?>"/>
+                            <br/><br/>
+                            B <input type="number" class="form_action" min="0" name="b"
+                                     value="<?php echo $data['post']['b'] ?>"/>
+                            <br/><br/>
+                            C <input type="number" class="form_action" min="0" name="c"
+                                     value="<?php echo $data['post']['c'] ?>"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <input type="submit" value="submit"/> <br/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="index.php">Back to the menu</a>
+        </td>
+    </tr>
+</table>

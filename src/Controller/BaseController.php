@@ -12,7 +12,7 @@ use Kosmoss\Netpeak\TriangleModel;
  * Date: 02.04.15
  * Time: 16:46
  */
-abstract class BaseController
+abstract class BaseController implements ControllerInterface
 {
     /**
      * @var string
@@ -39,10 +39,28 @@ abstract class BaseController
      */
     protected $triangleModel;
 
+    /**
+     * @var string
+     */
+    protected $layout = "layout.phtml";
+
+    /**
+     * @param string $layout
+     * @return $this
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+
+        return $this;
+    }
+
     public function __construct()
     {
         $this->init();
     }
+
+    abstract public function process();
 
     protected function init()
     {
@@ -69,11 +87,7 @@ abstract class BaseController
             $tpl = $this->defaultTpl;
         }
 
-        $HTML = View::render($tpl, $data);
-
-        echo $HTML;
-
-        return $HTML;
+        return $this->showSomething($data, $tpl);
     }
 
     /**
@@ -93,11 +107,23 @@ abstract class BaseController
             $tpl = $this->defaultFormTpl;
         }
 
-        $HTML = View::render($tpl, $data);
+        return $this->showSomething($data, $tpl);
+    }
 
-        echo $HTML;
+    /**
+     * @param $data
+     * @param $tpl
+     * @return string
+     * @throws \Exception
+     */
+    protected function showSomething($data, $tpl)
+    {
+        $content = View::render($tpl, $data);
+        $layout  = View::render($this->layout, array_merge($data, ['content' => $content]));
 
-        return $HTML;
+        echo $layout;
+
+        return $layout;
     }
 
     protected function checkExistence()
